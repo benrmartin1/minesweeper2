@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://dq1at6f7cr1l2"]
+
+[ext_resource type="Script" uid="uid://dcbme3wjycli3" path="res://scripts/Board.cs" id="1_bw3vb"]
+[ext_resource type="PackedScene" uid="uid://v5m4tkm4t1ef" path="res://scenes/tile.tscn" id="2_tx6nw"]
+
+[node name="Board" type="Node2D" unique_id=47962618]
+script = ExtResource("1_bw3vb")
+TileScene = ExtResource("2_tx6nw")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1840412129]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=727269542]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Control" unique_id=1631751380]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -251.0
+offset_top = -180.5
+offset_right = 251.0
+offset_bottom = 173.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameOverLabel" type="Label" parent="CanvasLayer/Control" unique_id=283200870]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -140.0
+offset_right = 32.0
+offset_bottom = -117.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "You Win???"
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/Control" unique_id=1796633349]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.0
+offset_top = -92.0
+offset_right = 92.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "Flagged: X/X"
+
+[node name="ResetButton" type="Button" parent="CanvasLayer/Control" unique_id=2005298560]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 605.0
+offset_right = 526.0
+offset_bottom = 684.0
+text = "Another!"
+
+[node name="MainMenuButton" type="Button" parent="CanvasLayer/Control" unique_id=2137936526]
+layout_mode = 0
+offset_left = 201.0
+offset_top = 700.0
+offset_right = 527.0
+offset_bottom = 779.0
+text = "Main Menu"
+
+[node name="HideButton" type="Button" parent="CanvasLayer/Control" unique_id=264994045]
+layout_mode = 0
+offset_left = 530.0
+offset_top = 485.0
+offset_right = 589.0
+offset_bottom = 534.0
+text = "X"
+
+[connection signal="pressed" from="CanvasLayer/Control/ResetButton" to="." method="OnResetButton"]

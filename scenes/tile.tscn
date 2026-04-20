@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://v5m4tkm4t1ef"]
+
+[ext_resource type="Script" uid="uid://30c42m3hpdy" path="res://scripts/Tile.cs" id="1_ywnoi"]
+[ext_resource type="Texture2D" uid="uid://3tvs07e2kbtv" path="res://sprites/empty.png" id="2_ywnoi"]
+
+[node name="Tile" type="Node2D" unique_id=182230191]
+script = ExtResource("1_ywnoi")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1667953331]
+texture_filter = 1
+texture_repeat = 1
+texture = ExtResource("2_ywnoi")
+
+[node name="Control" type="Control" parent="." unique_id=868617062]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+
+[connection signal="gui_input" from="Control" to="." method="OnControlGuiInput"]

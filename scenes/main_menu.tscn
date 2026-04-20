@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://bguri4ip64u6d"]
+
+[ext_resource type="Script" uid="uid://dju35hs8hg2ul" path="res://scripts/MainMenu.cs" id="1_l6cm7"]
+
+[sub_resource type="Theme" id="Theme_vue75"]
+default_font_size = 60
+
+[node name="MainMenu" type="Node2D" unique_id=928370476]
+script = ExtResource("1_l6cm7")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=210155179]
+
+[node name="UI" type="Control" parent="CanvasLayer" unique_id=1634690652]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TopLabel" type="Label" parent="CanvasLayer/UI" unique_id=955967406]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -228.0
+offset_top = 100.0
+offset_right = 228.0
+offset_bottom = 183.0
+grow_horizontal = 2
+theme = SubResource("Theme_vue75")
+text = "Minesweeper 2!"
+horizontal_alignment = 1
+
+[node name="SmallGameButton" type="Button" parent="CanvasLayer/UI" unique_id=700712398]
+layout_mode = 0
+offset_left = 106.0
+offset_top = 240.0
+offset_right = 300.0
+offset_bottom = 407.0
+text = "Small Game"
+
+[node name="MediumGameButton" type="Button" parent="CanvasLayer/UI" unique_id=1386076687]
+layout_mode = 0
+offset_left = 436.0
+offset_top = 240.0
+offset_right = 630.0
+offset_bottom = 407.0
+text = "Medium Game"
+
+[node name="LargeGameButton" type="Button" parent="CanvasLayer/UI" unique_id=501779440]
+layout_mode = 0
+offset_left = 263.0
+offset_top = 485.0
+offset_right = 457.0
+offset_bottom = 652.0
+text = "Large Game"
+
+[node name="SettingsButton" type="Button" parent="CanvasLayer/UI" unique_id=1638429927]
+layout_mode = 0
+offset_left = 123.0
+offset_top = 1018.0
+offset_right = 576.0
+offset_bottom = 1095.0
+text = "Settings"
+
+[node name="CreditsButton" type="Button" parent="CanvasLayer/UI" unique_id=1447553815]
+layout_mode = 0
+offset_left = 126.0
+offset_top = 1145.0
+offset_right = 579.0
+offset_bottom = 1222.0
+text = "Credits"
+
+[connection signal="pressed" from="CanvasLayer/UI/SmallGameButton" to="." method="NewGameSmall"]
+[connection signal="pressed" from="CanvasLayer/UI/MediumGameButton" to="." method="NewGameMedium"]
+[connection signal="pressed" from="CanvasLayer/UI/LargeGameButton" to="." method="NewGameLarge"]

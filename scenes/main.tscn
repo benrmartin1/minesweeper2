@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://bx2717h2e6kga"]
+
+[ext_resource type="Script" uid="uid://bm5gq0rk2dfch" path="res://scripts/Main.cs" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://dq1at6f7cr1l2" path="res://scenes/board.tscn" id="2_0wfyh"]
+
+[node name="Main" type="Node" unique_id=1129428081]
+script = ExtResource("1_o5qli")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=889977173]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.7341201, 0.9366254, 0.943607, 1)
+
+[node name="Board" parent="." unique_id=47962618 instance=ExtResource("2_0wfyh")]
+
+[node name="ResetButton" type="Button" parent="." unique_id=1731748112]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -125.0
+offset_top = -180.0
+offset_right = 125.0
+offset_bottom = -80.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 64
+text = "Reset"
+
+[node name="TimerLabel" type="Label" parent="." unique_id=243313657]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -167.0
+offset_bottom = 67.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 48
+text = "Time: 0"
+horizontal_alignment = 2
+
+[connection signal="pressed" from="ResetButton" to="." method="OnResetButtonPressed"]
