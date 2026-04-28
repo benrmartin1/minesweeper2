@@ -7,9 +7,15 @@ public partial class Tile : Node2D
 {
 	[Signal]
 	public delegate void TileRevealedEventHandler();
+	[Signal]
+	public delegate void MineRevealedEventHandler();
+	[Signal]
+	public delegate void TileFlaggedEventHandler();
+	[Signal]
+	public delegate void TileUnflaggedEventHandler();
 
+	private int _neighborMineCount = 0;
 	public bool isMine = false;
-	public int mineCount = 0;
 	public bool isFlagged = false;
 	public bool isRevealed = false;
 
@@ -67,7 +73,7 @@ public partial class Tile : Node2D
 			GD.PrintErr("Bad mines number");
 			return;
 		}
-		this.mineCount = mineCount;
+		_neighborMineCount = mineCount;
 	}
 
 	public void OnControlGuiInput(InputEvent inputEvent)
@@ -103,7 +109,7 @@ public partial class Tile : Node2D
 				// if >= long press was already activated in _Process
 				if (pressTimeMs < longPressTimeMs)
 				{
-					Reveal();
+					Reveal(false);
 				}
 				isPressing = false;
 				pressTimeMs = 0;
@@ -130,39 +136,56 @@ public partial class Tile : Node2D
 		neighbors.Add(tile);
 	}
 
-	public void Reveal()
+	public void Reveal(bool forced)
 	{
-		if (isRevealed)
+		if (isRevealed || (isFlagged && !forced))
 		{
+			// ignore reveals for revealed or flagged tiles
 			return;
 		}
-		EmitSignal(SignalName.TileRevealed);
 		isRevealed = true;
+		if (isFlagged)
+		{
+			isFlagged = false;
+			EmitSignal(SignalName.TileUnflagged);
+		}
+
 		if (isMine)
 		{
 			var texture = ResourceLoader.Load<Texture2D>("res://sprites/bomb.png");
 			GetNode<Sprite2D>("Sprite2D").Texture = texture;
+			EmitSignal(SignalName.MineRevealed);
 		}
 		else
 		{
-			var texture = ResourceLoader.Load<Texture2D>(string.Format("res://sprites/{0}.png", mineCount));
+			var texture = ResourceLoader.Load<Texture2D>($"res://sprites/{_neighborMineCount}.png");
 			GetNode<Sprite2D>("Sprite2D").Texture = texture;
 
-			if (mineCount == 0)
+			if (_neighborMineCount == 0)
 			{
 				foreach (Tile neighbor in neighbors)
 				{
-					neighbor.Reveal();
+					neighbor.Reveal(true);
 				}
 			}
+			EmitSignal(SignalName.TileRevealed);
 		}
 	}
 
 	public void Flag()
 	{
-		EmitSignal(SignalName.TileRevealed); // Start game clock even if user starts game with flag
-		isFlagged = true;
-		var texture = ResourceLoader.Load<Texture2D>(string.Format("res://sprites/flag.png", mineCount));
-		GetNode<Sprite2D>("Sprite2D").Texture = texture;
+		if (isFlagged)
+		{
+			var texture = ResourceLoader.Load<Texture2D>("res://sprites/empty.png");
+			GetNode<Sprite2D>("Sprite2D").Texture = texture;
+			EmitSignal(SignalName.TileUnflagged); 
+		}
+		else
+		{
+			var texture = ResourceLoader.Load<Texture2D>("res://sprites/flag.png");
+			GetNode<Sprite2D>("Sprite2D").Texture = texture;
+			EmitSignal(SignalName.TileFlagged); 
+		}
+		isFlagged = !isFlagged;
 	}
 }

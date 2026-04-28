@@ -16,21 +16,6 @@ color = Color(0.7341201, 0.9366254, 0.943607, 1)
 
 [node name="Board" parent="." unique_id=47962618 instance=ExtResource("2_0wfyh")]
 
-[node name="ResetButton" type="Button" parent="." unique_id=1731748112]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -125.0
-offset_top = -180.0
-offset_right = 125.0
-offset_bottom = -80.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 64
-text = "Reset"
-
 [node name="TimerLabel" type="Label" parent="." unique_id=243313657]
 anchors_preset = 1
 anchor_left = 1.0
@@ -43,4 +28,9 @@ theme_override_font_sizes/font_size = 48
 text = "Time: 0"
 horizontal_alignment = 2
 
-[connection signal="pressed" from="ResetButton" to="." method="OnResetButtonPressed"]
+[node name="FlagLabel" type="Label" parent="." unique_id=388927794]
+offset_right = 167.0
+offset_bottom = 67.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 48
+text = "Flag: 10"

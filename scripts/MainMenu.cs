@@ -37,9 +37,10 @@ public partial class MainMenu : Node2D
 
 		var scene = GD.Load<PackedScene>("res://scenes/main.tscn");
 		var instance = (Main)scene.Instantiate();
-		instance.Width = width;
-		instance.Height = height;
+		// instance.Width = width;
+		// instance.Height = height;
 		AddChild(instance);
-		//instance.reset
+		instance.StartGame(width, height);
+		// instance.reset
 	}
 }
