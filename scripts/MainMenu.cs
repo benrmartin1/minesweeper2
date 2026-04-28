@@ -18,20 +18,30 @@ public partial class MainMenu : Node2D
 
 	public void NewGameSmall()
 	{
-		NewGame(5, 5);
+		// NewGame(5, 5);
+		NewGame(8, 8, 10, 1.2f);
 	}
 
 	public void NewGameMedium()
 	{
-		NewGame(6, 10);
+		// NewGame(6, 10);
+		NewGame(16, 16, 40, 0.65f);
 	}
 
 	public void NewGameLarge()
 	{
-		NewGame(10, 12);
+		NewGame(30, 16, 99, 0.35f);
 	}
 
-	public void NewGame(int width, int height)
+	public void NewGame(int width, int height, float zoom)
+	{
+		float ratio = 0.15f;
+		int mines = (int)Math.Floor(width * height * ratio);
+		// float ratio = GD.Randf();
+		NewGame(width, height, mines, zoom);
+	}
+
+	public void NewGame(int width, int height, int mines, float zoom)
 	{
 		ui.Hide();
 
@@ -40,7 +50,8 @@ public partial class MainMenu : Node2D
 		// instance.Width = width;
 		// instance.Height = height;
 		AddChild(instance);
-		instance.StartGame(width, height);
+		instance.StartGame(width, height, mines);
+		instance.SetZoomLevel(zoom);
 		// instance.reset
 	}
 }

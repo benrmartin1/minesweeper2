@@ -8,18 +8,14 @@ public partial class Main : Node
 	private Label _flagLabel;
 	private Board _board;
 
-	public int Width; //todo make private/local?
-	public int Height;
-
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		_timerLabel = GetNode<Label>("TimerLabel");
-		_flagLabel = GetNode<Label>("FlagLabel");
-		_board = GetNode<Board>("Board");
+		_timerLabel = GetNode<Label>("CanvasLayer/TimerLabel");
+		_flagLabel = GetNode<Label>("CanvasLayer/FlagLabel");
+		_board = GetNode<Board>("CanvasLayer/BoardControl/Board");
 		_board.UpdateTimer += OnTimerUpdated;
 		_board.UpdateFlagCount += OnFlagCountUpdated;
-		_board.SetupBoard(Width, Height);
 
 	}
 
@@ -28,11 +24,19 @@ public partial class Main : Node
 	{
 	}
 
-	public void StartGame(int width, int height)
+	public void StartGame(int width, int height, int mines)
 	{
-		Width = width;
-		Height = height;
-		_board.SetupBoard(Width, Height);
+		_board.SetupBoard(width, height, mines);
+	}
+
+	public void SetZoomLevel(float zoom)
+	{
+
+		// Control boardControl = GetNode<Control>("CanvasLayer/BoardControl");
+		// boardControl.Scale = new Vector2(zoom, zoom);
+
+		_board.Scale = new Vector2(zoom, zoom);
+
 	}
 
 	private void OnTimerUpdated(int newTime)

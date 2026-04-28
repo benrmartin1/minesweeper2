@@ -14,8 +14,8 @@ public partial class Board : Node2D
 	private Control _gameOverPanel;
 	private Tile[,] tilesArr;
 
-	private int xOffset = 64 * 1;
-	private int yOffset = 64 * 2;
+	// private int xOffset = 64 * 1;
+	// private int yOffset = 64 * 2;
 
 	// Timer
 	private bool gameRunning = false;
@@ -52,17 +52,15 @@ public partial class Board : Node2D
 		}
 	}
 
-	public void SetupBoard(int width, int height)
+	public void SetupBoard(int width, int height, int totalMineCount)
 	{
 		GetTree().CallGroup("tiles", Node.MethodName.QueueFree);
 		gameRunning = false;
 		gameTimer = gameTimerInt = 0;
 		EmitSignal(SignalName.UpdateTimer, gameTimerInt);
 
-		float ratio = 0.15f;
-		// float ratio = GD.Randf();
-		_totalMineCount = (int)Math.Floor(width * height * ratio);
 		_tilesFlagged = _tilesRevealed = 0;
+		_totalMineCount = totalMineCount;
 		EmitSignal(SignalName.UpdateFlagCount, _totalMineCount);
 
 		Generate(width, height, _totalMineCount);
@@ -90,7 +88,8 @@ public partial class Board : Node2D
 				Tile tile = TileScene.Instantiate<Tile>();
 				tilesArr[x, y] = tile;
 				// TODO: Separate bomb generation logic and tile drawing?
-				tile.Position = new Vector2(x * 64 + xOffset, y * 64 + yOffset);
+				// tile.Position = new Vector2(x * 64 + xOffset, y * 64 + yOffset);
+				tile.Position = new Vector2(x * 64, y * 64);
 				// GD.Print("created tile at ", tile.Position);
 
 				float mineChance = (float)minesRemaining / tilesRemaining;
@@ -204,7 +203,7 @@ public partial class Board : Node2D
 	// Called when reseting from within the game (not main menu)
 	private void OnResetButton()
 	{
-		SetupBoard(_width, _height);
+		SetupBoard(_width, _height, _totalMineCount);
 		_gameOverPanel.Hide();
 	}
 
